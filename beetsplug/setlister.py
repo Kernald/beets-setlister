@@ -23,7 +23,8 @@ from beets import ui
 from beets.library import Item
 from beets.dbcore.query import AndQuery, OrQuery, MatchQuery
 from beets.util import mkdirall, normpath, syspath
-import beets.autotag.hooks as hooks
+from beets.autotag.distance import Distance
+from beets.metadata_plugins import item_candidates
 import os
 import requests
 
@@ -36,7 +37,7 @@ def _get_best_match(items, track_name, artist_name):
     """
 
     def calc_distance(track_info, track_name, artist_name):
-        dist = hooks.Distance()
+        dist = Distance()
 
         dist.add_string('track_title', track_name, track_info.title)
 
@@ -56,7 +57,7 @@ def _get_best_match(items, track_name, artist_name):
 def _get_mb_candidate(track_name, artist_name, threshold=0.2):
     """Returns the best candidate from MusicBrainz for a track_name/artist_name
     """
-    candidates = hooks.item_candidates(Item(), artist_name, track_name)
+    candidates = item_candidates(Item(), artist_name, track_name)
     best_match = _get_best_match(candidates, track_name, artist_name)
 
     return best_match[0] if best_match[1] <= threshold else None
