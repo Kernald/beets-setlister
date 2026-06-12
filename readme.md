@@ -12,8 +12,18 @@ Plugin for [beets](https://github.com/sampsyo/beets) to generate playlists from 
 setlister:
     playlist_dir: ~/Music/setlists
     api_key: <YOUR API KEY HERE>
+    user: <YOUR SETLIST.FM USERNAME>  # optional, only for --attended
 ```
 Now you can run `$ beets setlister artist` to download the artists' latest setlist to your configured playlist directory, or specify the concert date using the `--date` option.
+
+### Attended concerts
+
+`$ beet setlister --attended` generates one playlist per concert you have marked
+as **attended** on setlist.fm, reading the username from the `user` config option
+(or `--user <username>` to override it). Concerts whose tracks aren't in your
+library are skipped, and every run regenerates the full set so newly imported
+music is picked up. In this mode the `artist` argument, `--date` and `--play` are
+ignored.
 
 ## Sample
 ```bash

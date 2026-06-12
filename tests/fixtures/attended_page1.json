@@ -1,0 +1,438 @@
+{
+  "type": "setlists",
+  "itemsPerPage": 20,
+  "page": 1,
+  "total": 26,
+  "setlist": [
+    {
+      "eventDate": "29-04-2026",
+      "artist": {
+        "name": "Hudson Freeman"
+      },
+      "venue": {
+        "name": "Qudos Bank Arena",
+        "city": {
+          "name": "Sydney"
+        }
+      },
+      "sets": {
+        "set": []
+      }
+    },
+    {
+      "eventDate": "29-04-2026",
+      "artist": {
+        "name": "Mumford & Sons"
+      },
+      "venue": {
+        "name": "Qudos Bank Arena",
+        "city": {
+          "name": "Sydney"
+        }
+      },
+      "sets": {
+        "set": [
+          {
+            "song": [
+              {
+                "name": "Ring of Fire",
+                "tape": true,
+                "cover": {
+                  "mbid": "ffd239cd-82c0-4a09-a949-8d664c34d581",
+                  "name": "Merle Kilgore",
+                  "sortName": "Kilgore, Merle",
+                  "disambiguation": "",
+                  "url": "https://www.setlist.fm/setlists/merle-kilgore-6bd7ca46.html"
+                },
+                "info": "Johnny Cash version"
+              },
+              {
+                "name": "Here"
+              },
+              {
+                "name": "Babel"
+              },
+              {
+                "name": "I Will Wait"
+              },
+              {
+                "name": "White Blank Page"
+              },
+              {
+                "name": "Rushmere"
+              },
+              {
+                "name": "Lover of the Light"
+              },
+              {
+                "name": "Badlands",
+                "with": {
+                  "mbid": "bd743186-436c-485b-82d7-7f472dd7087e",
+                  "name": "Gretta Ray",
+                  "sortName": "Ray, Gretta",
+                  "disambiguation": "Australian indie pop singer‐songwriter",
+                  "url": "https://www.setlist.fm/setlists/gretta-ray-2bce2c6a.html"
+                }
+              },
+              {
+                "name": "Prizefighter"
+              },
+              {
+                "name": "Believe"
+              },
+              {
+                "name": "Truth"
+              },
+              {
+                "name": "Stay"
+              },
+              {
+                "name": "Ditmas",
+                "info": "With Marcus running through the crowd"
+              },
+              {
+                "name": "The Cave"
+              },
+              {
+                "name": "The Wolf"
+              },
+              {
+                "name": "Icarus"
+              },
+              {
+                "name": "Awake My Soul"
+              },
+              {
+                "name": "Roll Away Your Stone"
+              }
+            ]
+          },
+          {
+            "name": "B-Stage",
+            "song": [
+              {
+                "name": "Timshel",
+                "info": "bluegrass version"
+              },
+              {
+                "name": "I'll Tell You Everything"
+              },
+              {
+                "name": "Rubber Band Man",
+                "with": {
+                  "mbid": "41f03c6d-56e1-428a-a186-9e81e58c2592",
+                  "name": "Folk Bitch Trio",
+                  "sortName": "Folk Bitch Trio",
+                  "disambiguation": "",
+                  "url": "https://www.setlist.fm/setlists/folk-bitch-trio-5bf99f00.html"
+                }
+              },
+              {
+                "name": "Ghosts That We Knew"
+              }
+            ]
+          },
+          {
+            "encore": 1,
+            "song": [
+              {
+                "name": "Delta"
+              },
+              {
+                "name": "The Banjo Song"
+              },
+              {
+                "name": "Little Lion Man"
+              },
+              {
+                "name": "Conversation With My Son (Gangsters & Angels)"
+              },
+              {
+                "name": "Son of a Preacher Man",
+                "tape": true,
+                "cover": {
+                  "mbid": "b896aa8c-2761-40ce-b485-0e1fffd26167",
+                  "name": "Dusty Springfield",
+                  "sortName": "Springfield, Dusty",
+                  "disambiguation": "",
+                  "url": "https://www.setlist.fm/setlists/dusty-springfield-13d6eda1.html"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "eventDate": "29-04-2026",
+      "artist": {
+        "name": "Folk Bitch Trio"
+      },
+      "venue": {
+        "name": "Qudos Bank Arena",
+        "city": {
+          "name": "Sydney"
+        }
+      },
+      "sets": {
+        "set": []
+      }
+    },
+    {
+      "eventDate": "17-03-2025",
+      "artist": {
+        "name": "Mumford & Sons"
+      },
+      "venue": {
+        "name": "Concert Hall",
+        "city": {
+          "name": "Sydney"
+        }
+      },
+      "sets": {
+        "set": [
+          {
+            "song": [
+              {
+                "name": "Timshel",
+                "info": "unplugged"
+              },
+              {
+                "name": "Malibu"
+              },
+              {
+                "name": "Babel"
+              },
+              {
+                "name": "The Cave"
+              },
+              {
+                "name": "Guiding Light"
+              },
+              {
+                "name": "Rushmere"
+              },
+              {
+                "name": "Where It Belongs"
+              },
+              {
+                "name": "Ghosts That We Knew"
+              },
+              {
+                "name": "White Blank Page"
+              },
+              {
+                "name": "Lover of the Light"
+              },
+              {
+                "name": "Awake My Soul"
+              },
+              {
+                "name": "Caroline"
+              },
+              {
+                "name": "Little Lion Man"
+              }
+            ]
+          },
+          {
+            "encore": 1,
+            "song": [
+              {
+                "name": "Ditmas",
+                "info": "unplugged"
+              },
+              {
+                "name": "Blood on the Page"
+              },
+              {
+                "name": "Delta"
+              },
+              {
+                "name": "The Wolf"
+              },
+              {
+                "name": "I Will Wait"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "eventDate": "06-11-2024",
+      "artist": {
+        "name": "Coldplay"
+      },
+      "venue": {
+        "name": "Accor Stadium",
+        "city": {
+          "name": "Sydney"
+        }
+      },
+      "sets": {
+        "set": [
+          {
+            "song": [
+              {
+                "name": "Light Through the Veins",
+                "tape": true,
+                "cover": {
+                  "mbid": "0b0c25f4-f31c-46a5-a4fb-ccbf53d663bd",
+                  "name": "Jon Hopkins",
+                  "sortName": "Hopkins, Jon",
+                  "disambiguation": "",
+                  "url": "https://www.setlist.fm/setlists/jon-hopkins-23d6347b.html"
+                },
+                "info": "sustainability video intro"
+              },
+              {
+                "name": "Flying Theme",
+                "tape": true,
+                "cover": {
+                  "mbid": "53b106e7-0cc6-42cc-ac95-ed8d30a3a98e",
+                  "name": "John Williams",
+                  "sortName": "Williams, John",
+                  "disambiguation": "American score composer",
+                  "url": "https://www.setlist.fm/setlists/john-williams-6bd6b676.html"
+                },
+                "info": "from \"E.T.\""
+              }
+            ]
+          },
+          {
+            "name": "Act .i. Planets",
+            "song": [
+              {
+                "name": "Music of the Spheres",
+                "tape": true
+              },
+              {
+                "name": "Higher Power"
+              },
+              {
+                "name": "Adventure of a Lifetime"
+              },
+              {
+                "name": "Paradise",
+                "info": "with John Farnham’s “You're the Voice” snippet in intro"
+              },
+              {
+                "name": "The Scientist",
+                "info": "with excerpts of \"Oceans\" in intro; and backwards outro"
+              }
+            ]
+          },
+          {
+            "name": "Act .ii. Moons",
+            "song": [
+              {
+                "name": "Viva la Vida",
+                "info": "on B-Stage"
+              },
+              {
+                "name": "Hymn for the Weekend",
+                "info": "on B-Stage"
+              },
+              {
+                "name": "Green Eyes",
+                "info": "on B-Stage; with two fans"
+              },
+              {
+                "name": "God Put a Smile Upon Your Face",
+                "info": "with AC/DC's \"Highway to Hell\" and Kylie Minogue's \"I Should Be Lucky\" snippets"
+              },
+              {
+                "name": "Yellow"
+              },
+              {
+                "name": "ALL MY LOVE"
+              }
+            ]
+          },
+          {
+            "name": "Act .iii. Stars",
+            "song": [
+              {
+                "name": "Human Heart",
+                "tape": true,
+                "info": "shortened; \"sung\" by The Weirdos"
+              },
+              {
+                "name": "People of the Pride"
+              },
+              {
+                "name": "Clocks"
+              },
+              {
+                "name": "WE PRAY",
+                "info": "with local guest vocalist Becca Hatch",
+                "with": {
+                  "mbid": "9f5a1f4d-e61f-40e1-ab2f-8c9f804ed85c",
+                  "name": "Shone",
+                  "sortName": "Shone",
+                  "disambiguation": "R&B Artist",
+                  "url": "https://www.setlist.fm/setlists/shone-5be363c8.html"
+                }
+              },
+              {
+                "name": "Infinity Sign",
+                "info": "on B-Stage; shortened; with excerpts of \"Music of the Spheres II\" & \"Every Teardrop Is a Waterfall\""
+              },
+              {
+                "name": "Something Just Like This",
+                "info": "outro remixed with Martin Garrix’s “Breakaway”"
+              },
+              {
+                "name": "My Universe"
+              },
+              {
+                "name": "A Sky Full of Stars",
+                "info": "restarted; asks audience to put phones away for this song"
+              }
+            ]
+          },
+          {
+            "name": "Act .iv. Home",
+            "song": [
+              {
+                "name": "Sunrise",
+                "tape": true,
+                "info": "with Louis Armstong’s intro speech to “What a Wonderful World”"
+              },
+              {
+                "name": "Sparks",
+                "info": "on C-Stage"
+              },
+              {
+                "name": "The Jumbotron Song",
+                "info": "on C-Stage"
+              },
+              {
+                "name": "Fix You",
+                "info": "with “Biutyful” intro"
+              },
+              {
+                "name": "GOOD FEELiNGS",
+                "with": {
+                  "mbid": "c4ac4b97-2eac-46f6-85ae-f916c93847e4",
+                  "name": "Ayra Starr",
+                  "sortName": "Starr, Ayra",
+                  "disambiguation": "Nigerian singer/songwriter",
+                  "url": "https://www.setlist.fm/setlists/ayra-starr-1bf475b8.html"
+                }
+              },
+              {
+                "name": "feelslikeimfallinginlove"
+              },
+              {
+                "name": "A Wave",
+                "tape": true
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
