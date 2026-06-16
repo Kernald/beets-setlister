@@ -13,8 +13,11 @@ setlister:
     playlist_dir: ~/Music/setlists
     api_key: <YOUR API KEY HERE>
     user: <YOUR SETLIST.FM USERNAME>  # optional, only for --attended
+    relative_to: playlist  # optional, see below (defaults to `playlist`)
 ```
 Now you can run `$ beets setlister artist` to download the artists' latest setlist to your configured playlist directory, or specify the concert date using the `--date` option.
+
+Track paths in the generated playlists honor a `setlister.relative_to` setting with the same three-mode semantics as beets' built-in playlist plugins. It defaults to `playlist` (paths relative to the playlist file itself), so playlists stay self-contained wherever `playlist_dir` lives. Set it to `library` for paths relative to your library `directory`, or to an explicit directory.
 
 ### Attended concerts
 

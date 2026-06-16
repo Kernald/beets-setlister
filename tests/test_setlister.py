@@ -174,6 +174,9 @@ def _parsed(artist, venue, date, tracks):
 
 def test_generate_playlist_writes_named_file_when_tracks_match(tmp_path):
     from beets.library import Library, Item
+    from beets import config
+    config['directory'] = '/music'
+    config['setlister']['relative_to'] = 'library'
     plugin = _plugin_with_playlist_dir(tmp_path)
     lib = Library(':memory:')
     lib.add(Item(title='Ring of Fire', artist='Mumford & Sons',
@@ -186,7 +189,7 @@ def test_generate_playlist_writes_named_file_when_tracks_match(tmp_path):
     assert wrote is True
     m3u = tmp_path / 'Mumford & Sons at Venue (01-01-2020).m3u'
     assert m3u.exists()
-    assert m3u.read_text().strip() == '/music/rof.flac'
+    assert m3u.read_text().strip() == 'rof.flac'
 
 
 def test_generate_playlist_skips_and_writes_nothing_when_no_match(tmp_path):
@@ -199,6 +202,87 @@ def test_generate_playlist_skips_and_writes_nothing_when_no_match(tmp_path):
 
     assert wrote is False
     assert list(tmp_path.iterdir()) == []
+
+
+# ---------------------------------------------------------------------------
+# _generate_playlist honors `setlister.relative_to` (like beets' own plugins)
+# ---------------------------------------------------------------------------
+
+def _write_single_track(tmp_path, item_path):
+    """Generate a one-track playlist and return its (stripped) single line."""
+    from beets.library import Library, Item
+    plugin = _plugin_with_playlist_dir(tmp_path)
+    lib = Library(':memory:')
+    lib.add(Item(title='Ring of Fire', artist='Mumford & Sons',
+                 path=item_path))
+    plugin._generate_playlist(
+        lib, _parsed('Mumford & Sons', 'Venue', '01-01-2020',
+                     ['Ring of Fire']))
+    m3u = tmp_path / 'Mumford & Sons at Venue (01-01-2020).m3u'
+    return m3u.read_text().strip()
+
+
+def test_generate_playlist_writes_library_relative_paths(tmp_path):
+    # "library" => relative to beets' `directory`.
+    from beets import config
+    config['directory'] = '/music'
+    config['setlister']['relative_to'] = 'library'
+
+    line = _write_single_track(tmp_path, b'/music/Mumford/rof.flac')
+
+    assert line == 'Mumford/rof.flac'
+
+
+def test_generate_playlist_writes_playlist_relative_paths_by_default(tmp_path):
+    # "playlist" (the default) => paths relative to the directory holding the
+    # .m3u file, which here is the playlist_dir (tmp_path) itself.
+    from beets import config
+    config['setlister']['relative_to'] = 'playlist'
+
+    line = _write_single_track(tmp_path, str(tmp_path / 'a' / 'rof.flac')
+                               .encode('utf-8'))
+
+    assert line == os.path.join('a', 'rof.flac')
+
+
+def test_relative_to_defaults_to_playlist():
+    # A freshly configured plugin registers "playlist" as the default, so
+    # playlists are self-contained without any extra configuration. Replace the
+    # whole `setlister` overlay so a `relative_to` set by an earlier test does
+    # not leak into this one through beets' global config.
+    from beets import config
+    config['setlister'].set({'api_key': 'dummy', 'playlist_dir': '/tmp'})
+    plugin = setlister.SetlisterPlugin()
+
+    assert plugin.config['relative_to'].get() == 'playlist'
+
+
+def test_generate_playlist_paths_resolve_when_dir_below_library(tmp_path):
+    # Regression: with the playlist directory nested under the library (as on
+    # triton: <library>/playlists/Setlists), "playlist" mode must reach back up
+    # to the track, not produce library-root-relative paths that resolve inside
+    # the playlist directory.
+    from beets import config
+    config['directory'] = str(tmp_path)
+    config['setlister']['relative_to'] = 'playlist'
+    setlists_dir = tmp_path / 'playlists' / 'Setlists'
+    setlists_dir.mkdir(parents=True)
+
+    line = _write_single_track(setlists_dir,
+                               str(tmp_path / 'Mumford' / 'rof.flac')
+                               .encode('utf-8'))
+
+    assert line == os.path.join('..', '..', 'Mumford', 'rof.flac')
+
+
+def test_generate_playlist_respects_explicit_relative_to(tmp_path):
+    # An explicit path => paths relative to that path.
+    from beets import config
+    config['setlister']['relative_to'] = '/music/library'
+
+    line = _write_single_track(tmp_path, b'/music/library/Mumford/rof.flac')
+
+    assert line == 'Mumford/rof.flac'
 
 
 # ---------------------------------------------------------------------------

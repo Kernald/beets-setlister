@@ -19,10 +19,10 @@ from __future__ import (division, absolute_import, print_function,
                         unicode_literals)
 
 from beets.plugins import BeetsPlugin
-from beets import ui
+from beets import config, ui
 from beets.library import Item
 from beets.dbcore.query import AndQuery, OrQuery, MatchQuery
-from beets.util import mkdirall, normpath, syspath
+from beets.util import bytestring_path, mkdirall, normpath, syspath
 from beets.autotag.distance import Distance
 from beets.metadata_plugins import item_candidates
 import os
@@ -116,13 +116,43 @@ def _setlist_name(setlist):
                                       setlist['event_date'])
 
 
-def _save_playlist(m3u_path, items):
-    """Saves a list of Items as a playlist at m3u_path
+def _relative_base(m3u_path):
+    """Directory that track paths should be written relative to.
+
+    Honors the `setlister.relative_to` setting using the same three-mode
+    semantics as beets' built-in playlist plugins:
+
+    - "library":  relative to beets' `directory`
+    - "playlist": relative to the directory holding the .m3u file
+    - any path:   relative to that path
+
+    Defaults to "playlist" so the playlists we generate are self-contained and
+    keep working regardless of where `playlist_dir` sits relative to the
+    library. Returns a bytes path.
+    """
+    mode = config['setlister']['relative_to'].get('playlist')
+    if mode == 'library':
+        base = config['directory'].as_filename()
+    elif mode == 'playlist':
+        base = os.path.dirname(m3u_path)
+    else:
+        base = config['setlister']['relative_to'].as_filename()
+    return bytestring_path(base)
+
+
+def _save_playlist(m3u_path, items, relative_to=None):
+    """Saves a list of Items as a playlist at m3u_path.
+
+    Track paths are written relative to `relative_to` (a bytes path) when
+    given, otherwise as absolute paths.
     """
     mkdirall(m3u_path)
     with open(syspath(m3u_path), 'w') as f:
         for item in items:
-            f.write(item.path.decode('utf-8') + u'\n')
+            path = item.path
+            if relative_to:
+                path = os.path.relpath(path, relative_to)
+            f.write(path.decode('utf-8') + u'\n')
 
 
 # Reference: https://api.setlist.fm/docs/1.0/resource__1.0_search_setlists.html
@@ -256,6 +286,7 @@ class SetlisterPlugin(BeetsPlugin):
             'playlist_dir': None,
             'api_key': '',
             'user': None,
+            'relative_to': 'playlist',
         })
 
         if not os.path.isdir(
@@ -369,7 +400,7 @@ class SetlisterPlugin(BeetsPlugin):
                                 self.config['playlist_dir'].as_filename(),
                                 setlist_name + '.m3u'))
 
-        _save_playlist(m3u_path, items)
+        _save_playlist(m3u_path, items, _relative_base(m3u_path))
         self._log.info(
             u'Saved playlist at "{0}"'.format(m3u_path.decode('utf-8'))
         )
