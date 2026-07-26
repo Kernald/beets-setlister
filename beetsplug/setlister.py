@@ -18,7 +18,7 @@ https://github.com/tomjaspers/beets-setlister
 from __future__ import (division, absolute_import, print_function,
                         unicode_literals)
 
-from beets.plugins import BeetsPlugin
+from beets.plugins import BeetsPlugin, send
 from beets import config, ui
 from beets.library import Item
 from beets.dbcore.query import AndQuery, OrQuery, MatchQuery
@@ -404,6 +404,7 @@ class SetlisterPlugin(BeetsPlugin):
         self._log.info(
             u'Saved playlist at "{0}"'.format(m3u_path.decode('utf-8'))
         )
+        send('setlist_written', playlist=m3u_path.decode('utf-8'))
         return True
 
     def find_items_in_lib(self, lib, track_names, artist_name):
