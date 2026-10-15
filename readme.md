@@ -14,10 +14,20 @@ setlister:
     api_key: <YOUR API KEY HERE>
     user: <YOUR SETLIST.FM USERNAME>  # optional, only for --attended
     relative_to: playlist  # optional, see below (defaults to `playlist`)
+    on_write: my-command {playlist}  # optional, see below
 ```
 Now you can run `$ beets setlister artist` to download the artists' latest setlist to your configured playlist directory, or specify the concert date using the `--date` option.
 
 Track paths in the generated playlists honor a `setlister.relative_to` setting with the same three-mode semantics as beets' built-in playlist plugins. It defaults to `playlist` (paths relative to the playlist file itself), so playlists stay self-contained wherever `playlist_dir` lives. Set it to `library` for paths relative to your library `directory`, or to an explicit directory.
+
+### Commands after a playlist is written
+
+Set `setlister.on_write` to run a command each time a playlist is written.
+The `{playlist}` placeholder is replaced with the path of the `.m3u` file.
+
+The plugin also sends a `setlist_written` event, with the `playlist` argument, for other plugins.
+The beets `hook` plugin accepts only core beets events, so you cannot use it with `setlist_written`.
+Use `on_write` instead.
 
 ### Attended concerts
 

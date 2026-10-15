@@ -205,6 +205,50 @@ def test_generate_playlist_skips_and_writes_nothing_when_no_match(tmp_path):
 
 
 # ---------------------------------------------------------------------------
+# _generate_playlist runs the `setlister.on_write` command
+# ---------------------------------------------------------------------------
+
+def _generate_with_on_write(tmp_path, monkeypatch, command, titles):
+    """Generate a playlist with `on_write` set and return the commands run."""
+    from beets.library import Library, Item
+    from beets import config
+    config['setlister']['on_write'] = command
+    plugin = _plugin_with_playlist_dir(tmp_path)
+    lib = Library(':memory:')
+    lib.add(Item(title='Ring of Fire', artist='Mumford & Sons',
+                 path=b'/music/rof.flac'))
+    calls = []
+    monkeypatch.setattr(setlister.subprocess, 'check_call', calls.append)
+    plugin._generate_playlist(
+        lib, _parsed('Mumford & Sons', 'Venue', '01-01-2020', titles))
+    return calls
+
+
+def test_on_write_runs_command_with_playlist_path(tmp_path, monkeypatch):
+    calls = _generate_with_on_write(
+        tmp_path, monkeypatch, 'setlist-covers --flag {playlist}',
+        ['Ring of Fire'])
+
+    m3u = tmp_path / 'Mumford & Sons at Venue (01-01-2020).m3u'
+    assert calls == [['setlist-covers', '--flag', str(m3u)]]
+
+
+def test_on_write_does_not_run_when_no_playlist_written(tmp_path,
+                                                        monkeypatch):
+    calls = _generate_with_on_write(
+        tmp_path, monkeypatch, 'setlist-covers {playlist}', ['X'])
+
+    assert calls == []
+
+
+def test_on_write_does_not_run_when_unset(tmp_path, monkeypatch):
+    calls = _generate_with_on_write(
+        tmp_path, monkeypatch, None, ['Ring of Fire'])
+
+    assert calls == []
+
+
+# ---------------------------------------------------------------------------
 # _generate_playlist honors `setlister.relative_to` (like beets' own plugins)
 # ---------------------------------------------------------------------------
 

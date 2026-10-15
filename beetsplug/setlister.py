@@ -27,6 +27,7 @@ from beets.autotag.distance import Distance
 from beets.metadata_plugins import item_candidates
 import os
 import requests
+import shlex
 import time
 
 import subprocess
@@ -287,6 +288,7 @@ class SetlisterPlugin(BeetsPlugin):
             'api_key': '',
             'user': None,
             'relative_to': 'playlist',
+            'on_write': None,
         })
 
         if not os.path.isdir(
@@ -405,7 +407,31 @@ class SetlisterPlugin(BeetsPlugin):
             u'Saved playlist at "{0}"'.format(m3u_path.decode('utf-8'))
         )
         send('setlist_written', playlist=m3u_path.decode('utf-8'))
+        self._run_on_write(m3u_path.decode('utf-8'))
         return True
+
+    def _run_on_write(self, playlist):
+        """Run the `on_write` command, if set, for a written playlist.
+
+        The beets `hook` plugin only accepts core beets events, so it cannot
+        listen for `setlist_written`. This option gives the same result.
+        Each argument is formatted with `{playlist}`, as `hook` does.
+        """
+        command = self.config['on_write'].get()
+        if not command:
+            return
+
+        pieces = [piece.format(playlist=playlist)
+                  for piece in shlex.split(command)]
+        self._log.debug(u'running on_write command "{0}"'.format(
+                        u' '.join(pieces)))
+        try:
+            subprocess.check_call(pieces)
+        except subprocess.CalledProcessError as exc:
+            self._log.error(u'on_write command exited with status {0}'.format(
+                            exc.returncode))
+        except OSError as exc:
+            self._log.error(u'on_write command failed: {0}'.format(exc))
 
     def find_items_in_lib(self, lib, track_names, artist_name):
         """Returns a list of items found, and a list of items not found,
